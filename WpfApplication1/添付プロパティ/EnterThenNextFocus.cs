@@ -32,7 +32,6 @@ namespace WpfApplication1
 
 		private static void PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
 		{
-//			TextBox textBox = (TextBox)sender;
 			Control textBox = (Control)sender;
 			if (textBox == null) return;
 
@@ -49,7 +48,6 @@ namespace WpfApplication1
 		private static void TextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			ModifierKeys modifierKeys = Keyboard.Modifiers;
-//			UIElement element = (UIElement)sender;
 			FrameworkElement element = Keyboard.FocusedElement as FrameworkElement;
 
 			if (e.Key == Key.Enter){
@@ -68,8 +66,6 @@ namespace WpfApplication1
 				{
 					if (element != null)
 						element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-
-					//element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
 				}
 				e.Handled = true;
 			}

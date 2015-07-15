@@ -32,8 +32,6 @@ namespace WpfApplication1
 
 		private static void PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
 		{
-//			if (!(sender is TextBox) && !(sender is ComboBox)) return;
-
 			BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 			Type senderType = sender.GetType();
 			EventInfo eventInfo = senderType.GetEvent("PreviewTextInput", bindingFlags);
@@ -51,46 +49,10 @@ namespace WpfApplication1
 			{
 				eventInfo.AddEventHandler(sender, eventMethod);
 			}
-
-			//if (sender is TextBox)
-			//{
-			//	TextBox textBox = (TextBox)sender;
-			//	if (textBox == null) return;
-
-			//	// イベントを登録・削除
-			//	if ((RegexCheck.InputChar)e.NewValue == RegexCheck.InputChar.All)
-			//	{
-			//		textBox.PreviewTextInput -= textBox_OnPreviewTextInput;
-			//	}
-			//	else
-			//	{
-			//		textBox.PreviewTextInput += textBox_OnPreviewTextInput;
-			//	}
-			//}
-			//if (sender is ComboBox)
-			//{
-			//	ComboBox textBox = (ComboBox)sender;
-			//	if (textBox == null) return;
-
-			//	// イベントを登録・削除
-			//	if ((RegexCheck.InputChar)e.NewValue == RegexCheck.InputChar.All)
-			//	{
-			//		textBox.PreviewTextInput -= textBox_OnPreviewTextInput;
-			//	}
-			//	else
-			//	{
-			//		textBox.PreviewTextInput += textBox_OnPreviewTextInput;
-			//	}
-			//}
 		}
 
 		static void textBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
-			//String value = (String)property.GetValue(sender, null);
-
-//			TextBox textBox = (TextBox)sender;
-//			if (textBox == null) return;
-
 			if (String.IsNullOrEmpty(e.TextComposition.Text)) return;
 
 			if (RegexCheck.IsMatched(e.TextComposition.Text, GetInputCharcter((DependencyObject)sender)))
@@ -103,7 +65,6 @@ namespace WpfApplication1
 				PropertyInfo property = type.GetProperty("Text");
 				string value = (string)property.GetValue(sender, null);
 				property.SetValue(sender, value.Replace(e.TextComposition.Text, String.Empty));
-				//textBox.Text = textBox.Text.Replace(e.TextComposition.Text, String.Empty);
 				e.Handled = true;
 			}
 		}
