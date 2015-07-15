@@ -32,15 +32,18 @@ namespace WpfApplication1
 
 		private static void PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
 		{
+			// コントロールがPreviewTextInputイベントを持っているかチェック
 			BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
-			Type senderType = sender.GetType();
-			EventInfo eventInfo = senderType.GetEvent("PreviewTextInput", bindingFlags);
+			EventInfo eventInfo = sender.GetType().GetEvent("PreviewTextInput", bindingFlags);
 			if (eventInfo == null) return;
-			Type classType = typeof(InputCharcter);
-			MethodInfo methodInfo = classType.GetMethod("textBox_OnPreviewTextInput", bindingFlags);
 
+			// PreviewTextInputイベントに割り当てるハンドラの情報を生成
+			MethodInfo methodInfo = typeof(InputCharcter).GetMethod("textBox_OnPreviewTextInput", bindingFlags);
+
+			// ハンドラをデリゲート化
 			Delegate eventMethod = Delegate.CreateDelegate(eventInfo.EventHandlerType, methodInfo);
 
+			// ハンドラをアタッチ
 			if ((RegexCheck.InputChar)e.NewValue == RegexCheck.InputChar.All)
 			{
 				eventInfo.RemoveEventHandler(sender, eventMethod);
@@ -61,8 +64,7 @@ namespace WpfApplication1
 			}
 			else
 			{
-				Type type = sender.GetType();
-				PropertyInfo property = type.GetProperty("Text");
+				PropertyInfo property = sender.GetType().GetProperty("Text");
 				string value = (string)property.GetValue(sender, null);
 				property.SetValue(sender, value.Replace(e.TextComposition.Text, String.Empty));
 				e.Handled = true;

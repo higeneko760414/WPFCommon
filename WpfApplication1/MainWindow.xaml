@@ -37,10 +37,10 @@
                 <WpfValidate:GridDateColumn Header="生年月日" Binding="{Binding ShainBirthDay}" Width="80" WpfValidate:DisplayFormat.DisplayFormat="yyyy/MM/dd"/>
                 <WpfValidate:GridTimeColumn Header="時刻" Binding="{Binding ShainBirthTime}" Width="45" WpfValidate:DisplayFormat.DisplayFormat="HH:mm"/>
                 <WpfValidate:GridNumberColumn Header="年齢" Binding="{Binding ShainAge}" Width="53" MaxLength="5" WpfValidate:DisplayFormat.DisplayFormat="#,0"/>
-                <WpfValidate:GridComboBoxColumn Header="性別" Width="53" WpfValidate:DisplayFormat.DisplayFormat="#,0"/>
+                <WpfValidate:GridComboBoxColumn Header="性別" Width="53" WpfValidate:DisplayFormat.DisplayFormat="#,0" IsEditable="True"/>
             </DataGrid.Columns>
         </DataGrid>
-        <WpfValidate:ComboBoxEx HorizontalAlignment="Left" Margin="337,74,0,0" VerticalAlignment="Top" Width="62" Foreground="#FFC91D1D" ItemsSource="{Binding Sex}" SelectedValuePath="Value" DisplayMemberPath="DisplayValue" TabIndex="4" IsEditable="True"/>
+        <WpfValidate:ComboBoxEx HorizontalAlignment="Left" Margin="337,74,0,0" VerticalAlignment="Top" Width="62" Foreground="#FFC91D1D" ItemsSource="{Binding Sex}" SelectedValuePath="Value" DisplayMemberPath="DisplayValue" TabIndex="4" IsEditable="True" MaxLength="4"/>
         <Label Content="性別" HorizontalAlignment="Left" Margin="295,73,0,0" VerticalAlignment="Top" Height="23" RenderTransformOrigin="2.147,-1.739" Padding="0" VerticalContentAlignment="Center"/>
 
     </Grid>
