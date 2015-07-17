@@ -16,17 +16,17 @@ namespace WpfApplication1
 		// 数値フォーマット
 		//=====================================================================
 		public static readonly DependencyProperty NumberFormatProperty =
-			DependencyProperty.RegisterAttached(PropertyName, typeof(bool), typeof(NumberFormat), new UIPropertyMetadata(PropertyChanged));
+			DependencyProperty.RegisterAttached(PropertyName, typeof(Boolean), typeof(NumberFormat), new UIPropertyMetadata(PropertyChanged));
 
 		[Category(CategoryName)]
 		[DisplayName(PropertyName)]
 		[Description(DescriptionValue)]
-		public static bool GetNumberFormat(DependencyObject obj)
+		public static Boolean GetNumberFormat(DependencyObject obj)
 		{
-			return (bool)obj.GetValue(NumberFormatProperty);
+			return (Boolean)obj.GetValue(NumberFormatProperty);
 		}
 
-		public static void SetNumberFormat(DependencyObject obj, bool value)
+		public static void SetNumberFormat(DependencyObject obj, Boolean value)
 		{
 			obj.SetValue(NumberFormatProperty, value);
 		}
@@ -36,7 +36,7 @@ namespace WpfApplication1
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;
 
-			if ((bool)e.NewValue)
+			if ((Boolean)e.NewValue)
 			{
 				textBox.LostFocus += textBox_LostFocus;
 			}
@@ -46,7 +46,7 @@ namespace WpfApplication1
 			}
 		}
 
-		static void textBox_LostFocus(object sender, RoutedEventArgs e)
+		static void textBox_LostFocus(Object sender, RoutedEventArgs e)
 		{
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;

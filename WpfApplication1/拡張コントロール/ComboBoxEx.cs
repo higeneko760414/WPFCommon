@@ -1,10 +1,14 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfApplication1
 {
 	class ComboBoxEx : ComboBox
 	{
+		const string PropertyName = "MaxLength";
+		const string EditTextBoxName = "PART_EditableTextBox";
+
 		public int MaxLength
 		{
 			get { return (int)GetValue(MaxLengthProperty); }
@@ -12,7 +16,7 @@ namespace WpfApplication1
 		}
 
 		public static readonly DependencyProperty MaxLengthProperty =
-			DependencyProperty.Register("MaxLength", typeof(int), typeof(ComboBoxEx), new UIPropertyMetadata(0));
+			DependencyProperty.Register(PropertyName, typeof(int), typeof(ComboBoxEx), new UIPropertyMetadata(0));
 
 		public ComboBoxEx()
 		{
@@ -21,21 +25,27 @@ namespace WpfApplication1
 			// Enterによるフォーカス移動
 			this.SetValue(EnterThenNextFocus.EnterThenNextFocusProperty, true);
 			// 入力文字種の制限
-			this.SetValue(InputCharcter.InputCharcterProperty, RegexCheck.InputChar.Zenkaku_All);
+			this.SetValue(InputCharcter.InputCharcterProperty, InputCharcter.GetInputCharcter(this));
 			// MaxLengthの設定
 			this.Loaded += ComboBoxEx_Loaded;
+			// 前ゼロ埋め
+			this.SetValue(ZeroPadding.ZeroPaddingProperty, false);
 		}
 
-		private void ComboBoxEx_Loaded(object sender, System.Windows.RoutedEventArgs e)
+		private void ComboBoxEx_Loaded(Object sender, RoutedEventArgs e)
 		{
 			ComboBox comboBox = (ComboBox)sender;
 
 			if (comboBox == null) return;
 			if (!comboBox.IsEditable) return;
 
-			TextBox textBox = (TextBox)comboBox.Template.FindName("PART_EditableTextBox", comboBox);
+			TextBox textBox = (TextBox)comboBox.Template.FindName(EditTextBoxName, comboBox);
+
 			if (textBox != null)
+			{
 				textBox.MaxLength = this.MaxLength;
+				textBox.SetValue(InputCharcter.InputCharcterProperty, InputCharcter.GetInputCharcter(this));
+			}
 		}
 	}
 }

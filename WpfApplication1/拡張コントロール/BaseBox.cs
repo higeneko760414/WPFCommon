@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace WpfApplication1
@@ -25,7 +26,7 @@ namespace WpfApplication1
 				{
 					StringFormat = DisplayFormat.GetDisplayFormat(this),
 					Mode = BindingMode.TwoWay,
-					TargetNullValue = ""
+					TargetNullValue = String.Empty
 				};
 				BindingOperations.SetBinding(this, TextBox.TextProperty, newBinding);
 			};

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,17 +13,17 @@ namespace WpfApplication1
 		const string DescriptionValue = "数値のみを入力可能にします。";
 
 		public static readonly DependencyProperty InputNumberProperty =
-			DependencyProperty.RegisterAttached(PropertyName, typeof(bool), typeof(InputNumber), new UIPropertyMetadata(PropertyChanged));
+			DependencyProperty.RegisterAttached(PropertyName, typeof(Boolean), typeof(InputNumber), new UIPropertyMetadata(PropertyChanged));
 
 		[Category(CategoryName)]
 		[DisplayName(PropertyName)]
 		[Description(DescriptionValue)]
-		public static bool GetInputNumber(DependencyObject obj)
+		public static Boolean GetInputNumber(DependencyObject obj)
 		{
-			return (bool)obj.GetValue(InputNumberProperty);
+			return (Boolean)obj.GetValue(InputNumberProperty);
 		}
 
-		public static void SetInputNumber(DependencyObject obj, bool value)
+		public static void SetInputNumber(DependencyObject obj, Boolean value)
 		{
 			obj.SetValue(InputNumberProperty, value);
 		}
@@ -32,7 +33,7 @@ namespace WpfApplication1
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;
 
-			if ((bool)e.NewValue)
+			if ((Boolean)e.NewValue)
 			{
 				textBox.PreviewTextInput += textBox_OnPreviewTextInput;
 			}
@@ -42,7 +43,7 @@ namespace WpfApplication1
 			}
 		}
 
-		static void textBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+		static void textBox_OnPreviewTextInput(Object sender, TextCompositionEventArgs e)
 		{
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;

@@ -29,7 +29,7 @@ namespace WpfApplication1
 			Time_Only,
 		}
 
-		public static bool IsMatched(string value, InputChar regexValue)
+		public static bool IsMatched(String value, InputChar regexValue)
 		{
 			string RegexString = String.Empty;
 

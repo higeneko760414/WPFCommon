@@ -13,17 +13,17 @@ namespace WpfApplication1
 		const string DescriptionValue = "フォーカス取得時にテキストを全選択します。";
 
 		public static readonly DependencyProperty SelectOnFocusProperty =
-			DependencyProperty.RegisterAttached(PropertyName, typeof(bool), typeof(SelectOnFocus), new PropertyMetadata(PropertyChanged));
+			DependencyProperty.RegisterAttached(PropertyName, typeof(Boolean), typeof(SelectOnFocus), new PropertyMetadata(PropertyChanged));
 
 		[Category(CategoryName)]
 		[DisplayName(PropertyName)]
 		[Description(DescriptionValue)]
-		public static bool GetSelectOnFocus(DependencyObject obj)
+		public static Boolean GetSelectOnFocus(DependencyObject obj)
 		{
-			return (bool)obj.GetValue(SelectOnFocusProperty);
+			return (Boolean)obj.GetValue(SelectOnFocusProperty);
 		}
 
-		public static void SetSelectOnFocus(DependencyObject obj, bool value)
+		public static void SetSelectOnFocus(DependencyObject obj, Boolean value)
 		{
 			obj.SetValue(SelectOnFocusProperty, value);
 		}
@@ -33,7 +33,7 @@ namespace WpfApplication1
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;
 
-			if ((bool)e.NewValue)
+			if ((Boolean)e.NewValue)
 			{
 				textBox.GotFocus += textBox_GotFocus;
 				textBox.PreviewMouseLeftButtonDown += textBox_PreviewMouseLeftButtonDown;
@@ -45,7 +45,7 @@ namespace WpfApplication1
 			}
 		}
 
-		static void textBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		static void textBox_PreviewMouseLeftButtonDown(Object sender, MouseButtonEventArgs e)
 		{
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;
@@ -57,7 +57,7 @@ namespace WpfApplication1
 			}
 		}
 
-		static void textBox_GotFocus(object sender, RoutedEventArgs e)
+		static void textBox_GotFocus(Object sender, RoutedEventArgs e)
 		{
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;

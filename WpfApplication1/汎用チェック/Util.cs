@@ -5,9 +5,9 @@ namespace WpfApplication1
 {
 	static class Util
 	{
-		public static string GetName<T>(Expression<Func<T>> e)
+		public static String GetName<T>(Expression<Func<T>> e)
 		{
-			var member = (MemberExpression)e.Body;
+			MemberExpression member = (MemberExpression)e.Body;
 			return member.Member.Name;
 		}
 	}

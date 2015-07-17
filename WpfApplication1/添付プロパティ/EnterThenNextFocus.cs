@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,17 +16,17 @@ namespace WpfApplication1
 		const string DescriptionValue = "Enterキー押下でフォーカス移動します。";
 
 		public static readonly DependencyProperty EnterThenNextFocusProperty =
-			DependencyProperty.RegisterAttached(PropertyName, typeof(bool), typeof(EnterThenNextFocus), new PropertyMetadata(PropertyChanged));
+			DependencyProperty.RegisterAttached(PropertyName, typeof(Boolean), typeof(EnterThenNextFocus), new PropertyMetadata(PropertyChanged));
 
 		[Category(CategoryName)]
 		[DisplayName(PropertyName)]
 		[Description(DescriptionValue)]
-		public static bool GetEnterThenNextFocus(DependencyObject obj)
+		public static Boolean GetEnterThenNextFocus(DependencyObject obj)
 		{
-			return (bool)obj.GetValue(EnterThenNextFocusProperty);
+			return (Boolean)obj.GetValue(EnterThenNextFocusProperty);
 		}
 
-		public static void SetEnterThenNextFocus(DependencyObject obj, bool value)
+		public static void SetEnterThenNextFocus(DependencyObject obj, Boolean value)
 		{
 			obj.SetValue(EnterThenNextFocusProperty, value);
 		}
@@ -35,7 +36,7 @@ namespace WpfApplication1
 			Control textBox = (Control)sender;
 			if (textBox == null) return;
 
-			if ((bool)e.NewValue)
+			if ((Boolean)e.NewValue)
 			{
 				textBox.PreviewKeyDown += TextBox_OnPreviewKeyDown;
 			}
@@ -45,10 +46,10 @@ namespace WpfApplication1
 			}
 		}
 
-		private static void TextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
+		private static void TextBox_OnPreviewKeyDown(Object sender, KeyEventArgs e)
 		{
 			ModifierKeys modifierKeys = Keyboard.Modifiers;
-			FrameworkElement element = Keyboard.FocusedElement as FrameworkElement;
+			FrameworkElement element = (FrameworkElement)Keyboard.FocusedElement;
 
 			if (e.Key == Key.Enter){
 				if ((modifierKeys & ModifierKeys.Alt) != ModifierKeys.None)

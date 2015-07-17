@@ -5,7 +5,7 @@ namespace WpfApplication1
 	public class NumericCheck
 	{
 		//　値が数値かチェック
-		public static bool IsNumeric(string value)
+		public static Boolean IsNumeric(String value)
 		{
 			double d;
 			if (Double.TryParse(value, out d))
@@ -19,7 +19,7 @@ namespace WpfApplication1
 		}
 
 		// 値の範囲チェック
-		public static bool ChkRange(double minValue, double maxValue, double targetValue)
+		public static Boolean ChkRange(Double minValue, Double maxValue, Double targetValue)
 		{
 			if (minValue > maxValue) return false;
 

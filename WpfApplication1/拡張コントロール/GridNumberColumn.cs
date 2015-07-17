@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -24,7 +25,7 @@ namespace WpfApplication1
 			DependencyProperty.Register(PropertyName, typeof(int), typeof(GridNumberColumn), new UIPropertyMetadata(0));
 
 		// データ表示用コントロールの設定
-		protected override FrameworkElement GenerateElement(DataGridCell cell, object dataItem)
+		protected override FrameworkElement GenerateElement(DataGridCell cell, Object dataItem)
 		{
 			TextBlock txtBlock = (TextBlock)base.GenerateElement(cell, dataItem);
 
@@ -33,14 +34,14 @@ namespace WpfApplication1
 			// 水平方向配置
 			txtBlock.HorizontalAlignment = HorizontalAlignment.Right;
 			// 表示フォーマット
-			string stringFormat = (string)this.GetValue(DisplayFormat.DisplayFormatProperty);
+			string stringFormat = (String)this.GetValue(DisplayFormat.DisplayFormatProperty);
 			base.SetStringFormat(txtBlock, stringFormat);
 
 			return txtBlock;
 		}
 
 		// データ編集用コントロールの設定
-		protected override FrameworkElement GenerateEditingElement(DataGridCell cell, object dataItem)
+		protected override FrameworkElement GenerateEditingElement(DataGridCell cell, Object dataItem)
 		{
 			TextBox textBox = (TextBox)base.GenerateEditingElement(cell, dataItem);
 
@@ -61,7 +62,7 @@ namespace WpfApplication1
 			// IMEを強制的にOFF
 			textBox.SetValue(InputMethod.IsInputMethodEnabledProperty, false);
 			// 表示フォーマット
-			string stringFormat = (string)this.GetValue(DisplayFormat.DisplayFormatProperty);
+			string stringFormat = (String)this.GetValue(DisplayFormat.DisplayFormatProperty);
 			base.SetStringFormat(textBox, stringFormat);
 
 			return textBox;

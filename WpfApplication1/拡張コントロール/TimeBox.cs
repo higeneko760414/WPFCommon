@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace WpfApplication1
@@ -23,7 +24,7 @@ namespace WpfApplication1
 			this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, textBox_OnPaste));
 		}
 
-		private void textBox_OnPaste(object sender, ExecutedRoutedEventArgs e)
+		private void textBox_OnPaste(Object sender, ExecutedRoutedEventArgs e)
 		{
 			// クリップボード内にテキストがなければ処理終了
 			if (!Clipboard.ContainsText()) return;
@@ -32,7 +33,7 @@ namespace WpfApplication1
 			string value = Clipboard.GetText();
 
 			// 取得した文字列がからの場合は処理終了
-			if (value == string.Empty) return;
+			if (String.IsNullOrEmpty(value)) return;
 
 			// 入力規則に一致しない場合は終了
 			if (!RegexCheck.IsMatched(value, RegexCheck.InputChar.Time_Only)) return;

@@ -1,7 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using System;
-using System.Reflection;
 
 namespace WpfApplication1
 {
@@ -15,14 +14,14 @@ namespace WpfApplication1
 		}
 
 		// プロパティ定義
-		public bool IsEditable
+		public Boolean IsEditable
 		{
-			get { return (bool)GetValue(IsEditableProperty); }
+			get { return (Boolean)GetValue(IsEditableProperty); }
 			set { SetValue(IsEditableProperty, value); }
 		}
 
 		public static readonly DependencyProperty IsEditableProperty =
-			DependencyProperty.Register(PropertyName, typeof(bool), typeof(GridComboBoxColumn), new UIPropertyMetadata(false));
+			DependencyProperty.Register(PropertyName, typeof(Boolean), typeof(GridComboBoxColumn), new UIPropertyMetadata(false));
 
 		public int MaxLength
 		{
@@ -34,10 +33,10 @@ namespace WpfApplication1
 			DependencyProperty.Register("MaxLength", typeof(int), typeof(GridComboBoxColumn), new UIPropertyMetadata(0));
 
 		// データ表示用コントロールの設定
-		protected override FrameworkElement GenerateElement(DataGridCell cell, object dataItem)
+		protected override FrameworkElement GenerateElement(DataGridCell cell, Object dataItem)
 		{
 
-			var txtBlock = base.GenerateElement(cell, dataItem);
+			ComboBox txtBlock = (ComboBox)base.GenerateElement(cell, dataItem);
 
 			//// 垂直方向配置
 			txtBlock.VerticalAlignment = VerticalAlignment.Center;
@@ -49,45 +48,48 @@ namespace WpfApplication1
 		}
 
 		// データ編集用コントロールの設定
-		protected override FrameworkElement GenerateEditingElement(DataGridCell cell, object dataItem)
+		protected override FrameworkElement GenerateEditingElement(DataGridCell cell, Object dataItem)
 		{
-			var textBox = base.GenerateEditingElement(cell, dataItem);
-
-			BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
-			Type senderType = textBox.GetType();
+			ComboBox comboBox = (ComboBox)base.GenerateEditingElement(cell, dataItem);
 
 			// IsEditableの設定
-			PropertyInfo propertyInfo = senderType.GetProperty(PropertyName, bindingFlags);
-			propertyInfo.SetValue(textBox, this.IsEditable);
-
-			// IsEditableの設定
-			//var textBox2 = textBox.FindChild(typeof(TextBox), "PART_EditableTextBox");
-			//textBox.Pre
-			//propertyInfo = senderType.GetProperty("MaxLength", bindingFlags);
-			//PropertyInfo[] sss = senderType.GetProperties(bindingFlags);
-			//propertyInfo.SetValue(textBox, this.MaxLength);
-
-			textBox.Height = 20;
-
-			//// 最大桁数
-			//textBox.MaxLength = this.MaxLength;
+			comboBox.IsEditable = this.IsEditable;
+			// MaxLength等の設定
+			comboBox.Loaded += textBox_Loaded;
+			// 高さを固定
+			comboBox.Height = 20;
 			// 垂直方向配置
-			textBox.VerticalAlignment = VerticalAlignment.Center;
-			//// 折り返し表示の禁止
-			//textBox.TextWrapping = System.Windows.TextWrapping.NoWrap;
-			//// Enterによるフォーカス移動
-			//textBox.SetValue(EnterThenNextFocus.EnterThenNextFocusProperty, true);
-			//// フォーカス取得時にテキスト全選択
-			//textBox.SetValue(SelectOnFocus.SelectOnFocusProperty, true);
-			//// ０埋め
-			//textBox.SetValue(ZeroPadding.ZeroPaddingProperty, this.GetValue(ZeroPadding.ZeroPaddingProperty));
-			//// 入力文字種の制限
-			//textBox.SetValue(InputCharcter.InputCharcterProperty, this.GetValue(InputCharcter.InputCharcterProperty));
+			comboBox.VerticalAlignment = VerticalAlignment.Center;
 			//// 表示フォーマット
 			//string stringFormat = (string)this.GetValue(DisplayFormat.DisplayFormatProperty);
 			//base.SetStringFormat(textBox, stringFormat);
 
-			return textBox;
+			return comboBox;
+		}
+
+		void textBox_Loaded(Object sender, RoutedEventArgs e)
+		{
+			ComboBox comboBox = (ComboBox)sender;
+
+			if (comboBox == null) return;
+			if (!comboBox.IsEditable) return;
+
+			TextBox textBox = (TextBox)comboBox.Template.FindName("PART_EditableTextBox", comboBox);
+			if (textBox != null)
+			{
+				// 入力可能文字数
+				textBox.MaxLength = this.MaxLength;
+				// 入力可能文字種
+				textBox.SetValue(InputCharcter.InputCharcterProperty, InputCharcter.GetInputCharcter(this));
+				//// 折り返し表示の禁止
+				//textBox.TextWrapping = System.Windows.TextWrapping.NoWrap;
+				//// Enterによるフォーカス移動
+				//textBox.SetValue(EnterThenNextFocus.EnterThenNextFocusProperty, true);
+				//// フォーカス取得時にテキスト全選択
+				//textBox.SetValue(SelectOnFocus.SelectOnFocusProperty, true);
+				//// ０埋め
+				//textBox.SetValue(ZeroPadding.ZeroPaddingProperty, this.GetValue(ZeroPadding.ZeroPaddingProperty));
+			}
 		}
 	}
 }

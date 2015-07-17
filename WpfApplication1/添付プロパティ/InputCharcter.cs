@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace WpfApplication1
 {
@@ -20,6 +21,8 @@ namespace WpfApplication1
 		[Description(DescriptionValue)]
 		[AttachedPropertyBrowsableForType(typeof(CommonBox))]
 		[AttachedPropertyBrowsableForType(typeof(GridTextColumn))]
+		[AttachedPropertyBrowsableForType(typeof(ComboBoxEx))]
+		[AttachedPropertyBrowsableForType(typeof(GridComboBoxColumn))]
 		public static RegexCheck.InputChar GetInputCharcter(DependencyObject obj)
 		{
 			return (RegexCheck.InputChar)obj.GetValue(InputCharcterProperty);
@@ -54,19 +57,33 @@ namespace WpfApplication1
 			}
 		}
 
-		static void textBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+		static void textBox_OnPreviewTextInput(Object sender, TextCompositionEventArgs e)
 		{
+			// 入力値が空白の場合は処理しない
 			if (String.IsNullOrEmpty(e.TextComposition.Text)) return;
 
 			if (RegexCheck.IsMatched(e.TextComposition.Text, GetInputCharcter((DependencyObject)sender)))
 			{
+				// 入力条件則に一致する場合は処理続行
 				e.Handled = false;
 			}
 			else
 			{
+				// Textプロパティを取得
 				PropertyInfo property = sender.GetType().GetProperty("Text");
-				string value = (string)property.GetValue(sender, null);
-				property.SetValue(sender, value.Replace(e.TextComposition.Text, String.Empty));
+				// Textプロパティの値を取得
+				string value = (String)property.GetValue(sender);
+				// Textプロパティの値を置換
+				value = value.Replace(e.TextComposition.Text, String.Empty);
+				// Textプロパティの値を更新
+				property.SetValue(sender, value);
+
+				// ComboBoxのText対応
+				TextBox comboText = (TextBox)e.OriginalSource;
+				if (comboText != sender)
+				{
+					comboText.Text = value;
+				}
 				e.Handled = true;
 			}
 		}

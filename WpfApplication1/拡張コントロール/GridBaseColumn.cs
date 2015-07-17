@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -12,7 +13,7 @@ namespace WpfApplication1
 		}
 
 		// StringFormatのバインディング設定
-		public void SetStringFormat(DependencyObject sender, string format)
+		public void SetStringFormat(DependencyObject sender, String format)
 		{
 			if (sender == null) return;
 

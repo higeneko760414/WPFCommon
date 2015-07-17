@@ -13,19 +13,20 @@ namespace WpfApplication1
 		const char paddingChar = '0';
 
 		public static readonly DependencyProperty ZeroPaddingProperty =
-			DependencyProperty.RegisterAttached(PropertyName, typeof(bool), typeof(ZeroPadding), new UIPropertyMetadata(PropertyChanged));
+			DependencyProperty.RegisterAttached(PropertyName, typeof(Boolean), typeof(ZeroPadding), new UIPropertyMetadata(PropertyChanged));
 
 		[Category(CategoryName)]
 		[DisplayName(PropertyName)]
 		[Description(DescriptionValue)]
 		[AttachedPropertyBrowsableForType(typeof(CommonBox))]
 		[AttachedPropertyBrowsableForType(typeof(GridTextColumn))]
-		public static bool GetZeroPadding(DependencyObject obj)
+		[AttachedPropertyBrowsableForType(typeof(GridComboBoxColumn))]
+		public static Boolean GetZeroPadding(DependencyObject obj)
 		{
-			return (bool)obj.GetValue(ZeroPaddingProperty);
+			return (Boolean)obj.GetValue(ZeroPaddingProperty);
 		}
 
-		public static void SetZeroPadding(DependencyObject obj, bool value)
+		public static void SetZeroPadding(DependencyObject obj, Boolean value)
 		{
 			obj.SetValue(ZeroPaddingProperty, value);
 		}
@@ -37,7 +38,7 @@ namespace WpfApplication1
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;
 
-			if ((bool)e.NewValue)
+			if ((Boolean)e.NewValue)
 			{
 				textBox.LostFocus += textBox_LostFocus;
 			}
@@ -47,7 +48,7 @@ namespace WpfApplication1
 			}
 		}
 
-		static void textBox_LostFocus(object sender, RoutedEventArgs e)
+		static void textBox_LostFocus(Object sender, RoutedEventArgs e)
 		{
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;

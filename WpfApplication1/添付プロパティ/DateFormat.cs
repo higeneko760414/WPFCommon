@@ -14,17 +14,17 @@ namespace WpfApplication1
 		const string SeparateMark = "/";
 
 		public static readonly DependencyProperty DateFormatProperty =
-			DependencyProperty.RegisterAttached(PropertyName, typeof(bool), typeof(DateFormat), new UIPropertyMetadata(PropertyChanged));
+			DependencyProperty.RegisterAttached(PropertyName, typeof(Boolean), typeof(DateFormat), new UIPropertyMetadata(PropertyChanged));
 
 		[Category(CategoryName)]
 		[DisplayName(PropertyName)]
 		[Description(DescriptionValue)]
-		public static bool GetDateFormat(DependencyObject obj)
+		public static Boolean GetDateFormat(DependencyObject obj)
 		{
-			return (bool)obj.GetValue(DateFormatProperty);
+			return (Boolean)obj.GetValue(DateFormatProperty);
 		}
 
-		public static void SetDateFormat(DependencyObject obj, bool value)
+		public static void SetDateFormat(DependencyObject obj, Boolean value)
 		{
 			obj.SetValue(DateFormatProperty, value);
 		}
@@ -34,7 +34,7 @@ namespace WpfApplication1
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;
 
-			if ((bool)e.NewValue)
+			if ((Boolean)e.NewValue)
 			{
 				textBox.LostFocus += textBox_LostFocus;
 			}
@@ -44,7 +44,7 @@ namespace WpfApplication1
 			}
 		}
 
-		static void textBox_LostFocus(object sender, RoutedEventArgs e)
+		static void textBox_LostFocus(Object sender, RoutedEventArgs e)
 		{
 			TextBox textBox = (TextBox)sender;
 			if (textBox == null) return;
@@ -71,7 +71,7 @@ namespace WpfApplication1
 			DateTime dt;
 			if (DateTime.TryParse(convertValue, out dt))
 			{
-				string format = (string)DisplayFormat.GetDisplayFormat(textBox);
+				string format = (String)DisplayFormat.GetDisplayFormat(textBox);
 				if (!String.IsNullOrEmpty(format))
 				{
 					textBox.Text = dt.ToString(format);

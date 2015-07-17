@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using System.Windows;
 
 namespace WpfApplication1
@@ -8,7 +9,7 @@ namespace WpfApplication1
 		public NumberBox()
 		{
 			// 右詰
-			this.TextAlignment = System.Windows.TextAlignment.Right;
+			this.TextAlignment = TextAlignment.Right;
 			// 数値のみ入力可能
 			this.SetValue(InputCharcter.InputCharcterProperty, RegexCheck.InputChar.Number);
 			// IMEを強制的にOFF
@@ -19,7 +20,7 @@ namespace WpfApplication1
 			this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, textBox_OnPaste));
 		}
 
-		private void textBox_OnPaste(object sender, ExecutedRoutedEventArgs e)
+		private void textBox_OnPaste(Object sender, ExecutedRoutedEventArgs e)
 		{
 			// クリップボード内にテキストがなければ処理終了
 			if (!Clipboard.ContainsText()) return;
@@ -28,7 +29,7 @@ namespace WpfApplication1
 			string value = Clipboard.GetText();
 
 			// 取得した文字列がからの場合は処理終了
-			if (value == string.Empty) return;
+			if (String.IsNullOrEmpty(value)) return;
 
 			// 数値以外は貼付不可
 			if (!RegexCheck.IsMatched(value, RegexCheck.InputChar.Number)) return;

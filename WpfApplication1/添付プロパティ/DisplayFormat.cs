@@ -12,19 +12,19 @@ namespace WpfApplication1
 		const string DescriptionValue = "画面に表示するときのフォーマットを取得または設定します。";
 
 		public static readonly DependencyProperty DisplayFormatProperty =
-			DependencyProperty.RegisterAttached(PropertyName, typeof(string), typeof(DisplayFormat));
+			DependencyProperty.RegisterAttached(PropertyName, typeof(String), typeof(DisplayFormat));
 
 		[Category(CategoryName)]
 		[DisplayName(PropertyName)]
 		[Description(DescriptionValue)]
 		[AttachedPropertyBrowsableForType(typeof(TextBox))]
 		[AttachedPropertyBrowsableForType(typeof(GridBaseColumn))]
-		public static string GetDisplayFormat(DependencyObject obj)
+		public static String GetDisplayFormat(DependencyObject obj)
 		{
-			return (string)obj.GetValue(DisplayFormatProperty);
+			return (String)obj.GetValue(DisplayFormatProperty);
 		}
 
-		public static void SetDisplayFormat(DependencyObject obj, string value)
+		public static void SetDisplayFormat(DependencyObject obj, String value)
 		{
 			obj.SetValue(DisplayFormatProperty, value);
 		}
