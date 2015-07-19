@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:WpfValidate="clr-namespace:WpfApplication1">
+
+	<!-- 標準のフォントスタイル -->
+	<Style x:Key="ControlStyle" TargetType="Control">
+		<Setter Property="FontFamily" Value="Meiryo"/>
+		<Setter Property="FontSize" Value="12px"/>
+		<Style.Triggers>
+			<Trigger Property="IsFocused" Value="True">
+				<Setter Property="Background" Value="#FFC9D5F0"/>
+			</Trigger>
+			<Trigger Property="IsKeyboardFocusWithin" Value="True">
+				<Setter Property="Background" Value="#FFC9D5F0"/>
+			</Trigger>
+			<Trigger Property="Validation.HasError" Value="true">
+				<Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+				<Setter Property="Background" Value="#FFCD7979"/>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+	
+	<!-- スタイルをリソースに定義する -->
+	<Style TargetType="WpfValidate:CommonBox" BasedOn="{StaticResource ControlStyle}"></Style>
+	<Style TargetType="WpfValidate:DateBox" BasedOn="{StaticResource ControlStyle}"></Style>
+	<Style TargetType="WpfValidate:NumberBox" BasedOn="{StaticResource ControlStyle}"></Style>
+	<Style TargetType="WpfValidate:TimeBox" BasedOn="{StaticResource ControlStyle}"></Style>
+	<Style TargetType="WpfValidate:ComboBoxEx" BasedOn="{StaticResource ControlStyle}"></Style>
+
+	<Style TargetType="DataGridCell" BasedOn="{StaticResource ControlStyle}">
+		<Setter Property="Height" Value="22"/>
+	</Style>
+	
+	<ControlTemplate x:Key="ErrTemplate">
+		<DockPanel>
+			<Border BorderBrush="Red" BorderThickness="1"
+					Width="{Binding ElementName=adornedElement, Path=ActualWidth}"
+					Height="{Binding ElementName=adornedElement, Path=ActualHeight}">
+				<AdornedElementPlaceholder Name="adornedElement"/>
+			</Border>
+		</DockPanel>
+	</ControlTemplate>
+
+</ResourceDictionary>

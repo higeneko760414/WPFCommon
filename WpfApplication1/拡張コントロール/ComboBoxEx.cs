@@ -22,6 +22,8 @@ namespace WpfApplication1
 		{
 			// テキストボックスの高さを固定
 			this.Height = 23;
+			// 垂直方向配置
+			this.VerticalContentAlignment = VerticalAlignment.Center;
 			// Enterによるフォーカス移動
 			this.SetValue(EnterThenNextFocus.EnterThenNextFocusProperty, true);
 			// 入力文字種の制限

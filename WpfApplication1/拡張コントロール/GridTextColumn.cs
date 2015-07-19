@@ -11,6 +11,8 @@ namespace WpfApplication1
 		// コンストラクタ
 		public GridTextColumn()
 		{
+			var editingElementStyle = new Style(typeof(TextBox));
+			this.EditingElementStyle = editingElementStyle;
 		}
 
 		// プロパティ定義

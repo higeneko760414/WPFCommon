@@ -6,19 +6,13 @@
         Title="MainWindow" Height="350" Width="574">
 
     <Window.Resources>
-        <ControlTemplate x:Key="ErrTmp">
-            <DockPanel>
-                <TextBlock Text="！" DockPanel.Dock="Right" Margin="5,0,0,0"
-                           Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{Binding /ErrorContent}"/>
-                <AdornedElementPlaceholder/>
-            </DockPanel>
-        </ControlTemplate>
+        <ResourceDictionary Source="Dictionary1.xaml"/>
     </Window.Resources>
-
+    
     <Grid Margin="0,0,0,-2" HorizontalAlignment="Left" Width="564">
         <Button x:Name="btnClose" Content="閉じる" HorizontalAlignment="Left" Margin="465,280,0,0" VerticalAlignment="Top" Width="75" TabIndex="10"/>
         <Button x:Name="btnSet" Content="Button" HorizontalAlignment="Left" Margin="373,280,0,0" VerticalAlignment="Top" Width="75" TabIndex="9"/>
-        <WpfValidate:NumberBox HorizontalAlignment="Left" Margin="325,112,0,0"  Text="{Binding DetailShainAge}" VerticalAlignment="Top" Width="53" MaxLength="5"  Validation.ErrorTemplate="{StaticResource ErrTmp}" TabIndex="7" WpfValidate:DisplayFormat.DisplayFormat="#,0"/>
+        <WpfValidate:NumberBox HorizontalAlignment="Left" Margin="325,112,0,0"  Text="{Binding DetailShainAge}" VerticalAlignment="Top" Width="53" MaxLength="5" TabIndex="7" WpfValidate:DisplayFormat.DisplayFormat="#,0"/>
         <Label Content="年齢" HorizontalAlignment="Left" Margin="286,112,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="0"/>
         <WpfValidate:CommonBox HorizontalAlignment="Left" Margin="68,74,0,0" VerticalAlignment="Top" Width="60" WpfValidate:InputCharcter.InputCharcter="Zenkaku_All" TabIndex="2" MaxLength="4" Text="{Binding DetailShainLastName}"/>
         <Label Content="名字" HorizontalAlignment="Left" Margin="29,74,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="0"/>
@@ -34,7 +28,7 @@
                 <WpfValidate:GridTextColumn Header="社員コード" MaxLength="6" Binding="{Binding ShainCd}" Width="74" WpfValidate:InputCharcter.InputCharcter="Number" WpfValidate:ZeroPadding.ZeroPadding="True"/>
                 <WpfValidate:GridTextColumn Header="社員姓" MaxLength="3" Binding="{Binding ShainLastName}" Width="100" WpfValidate:InputCharcter.InputCharcter="Zenkaku_All"/>
                 <WpfValidate:GridTextColumn Header="社員名" MaxLength="3" Binding="{Binding ShainFirstName}" Width="100" WpfValidate:InputCharcter.InputCharcter="Zenkaku_All"/>
-                <WpfValidate:GridDateColumn Header="生年月日" Binding="{Binding ShainBirthDay}" Width="80" WpfValidate:DisplayFormat.DisplayFormat="yyyy/MM/dd"/>
+				<WpfValidate:GridDateColumn Header="生年月日" Binding="{Binding ShainBirthDay}" Width="80" WpfValidate:DisplayFormat.DisplayFormat="yyyy/MM/dd"/>
                 <WpfValidate:GridTimeColumn Header="時刻" Binding="{Binding ShainBirthTime}" Width="45" WpfValidate:DisplayFormat.DisplayFormat="HH:mm"/>
                 <WpfValidate:GridNumberColumn Header="年齢" Binding="{Binding ShainAge}" Width="53" MaxLength="5" WpfValidate:DisplayFormat.DisplayFormat="#,0"/>
                 <WpfValidate:GridComboBoxColumn Header="性別" Width="53" WpfValidate:DisplayFormat.DisplayFormat="#,0" IsEditable="True" WpfValidate:InputCharcter.InputCharcter="Number" MaxLength="6"/>
